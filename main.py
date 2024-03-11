@@ -1,10 +1,10 @@
 import streamlit as st
-# from langchain.chat_models import ChatOpenAI
-# from langchain.schema import SystemMessage, HumanMessage
-from langchain.llms import OpenAI, OpenAIChat
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import SystemMessage, HumanMessage
+# from langchain.llms import OpenAI, OpenAIChat
 
 
-st.title("献立提案AI　テスト")
+st.title("献立提案AIテスト")
 
 st.write("料理センス抜群の私めが、一品提案いたしましょう。")
 
@@ -41,20 +41,20 @@ if st.sidebar.button("生成"):
 
     # =======　コード　=======
 
-    # chat = ChatOpenAI(model_name="gpt-4")
-    # result = chat([
-    #     SystemMessage(content="あなたはセンス抜群の料理人。与えられた条件でレシピを考案し、料理名とレシピを日本語で回答しなさい。"),
-    #     HumanMessage(content="食べたい料理の条件は、ジャンルが{genre}、味のタイプが{type}。今の気分は{mood}で、今のお腹の空き具合は、最大を10とすると{condition}くらい")
-    #     ])
+    chat = ChatOpenAI(model_name="gpt-4")
+    result = chat([
+        SystemMessage(content="あなたはセンス抜群の料理人です。お客様にふさわしい、かつ簡単に作れる料理のレシピを考案し、料理名とレシピを日本語で提案します。"),
+        HumanMessage(content=f"今の気分は{mood}。今のお腹の空き具合は10段階中{condition}。{type}系の{genre}を食べたい。")
+        ])
 
 
-    chat = OpenAIChat(model_name="gpt-4")
-    result = chat(f"""
-        あなたはセンス抜群の料理人です。
-        お腹の空き具合が10段階中{condition}で{mood}な気分のお客様が、{type}系の{genre}を食べたいと言っています。
-        このお客様にふさわしい、かつ簡単に作れる料理のレシピを考案し、料理名とレシピを日本語で提案しなさい。
-        """)
+    # chat = OpenAIChat(model_name="gpt-4")
+    # result = chat(f"""
+    #     あなたはセンス抜群の料理人です。
+    #     お腹の空き具合が10段階中{condition}で{mood}な気分のお客様が、{type}系の{genre}を食べたいと言っています。
+    #     このお客様にふさわしい、かつ簡単に作れる料理のレシピを考案し、料理名とレシピを日本語で提案しなさい。
+    #     """)
 
     st.write(f"あなたにはこの料理を提案します。")
     st.write("   =================   ")
-    st.write(result)
+    st.write(result.content)
